@@ -586,7 +586,7 @@ class APGDAttack_targeted(APGDAttack):
             eot_iter=1,
             rho=.75,
             topk=None,
-            n_target_classes=9,
+            n_target_classes=2,
             verbose=False,
             device=None,
             use_largereps=False,
@@ -601,7 +601,7 @@ class APGDAttack_targeted(APGDAttack):
             use_largereps=use_largereps, is_tf_model=is_tf_model, logger=logger)
 
         self.y_target = None
-        self.n_target_classes = n_target_classes
+        self.n_target_classes = 2 # n_target_classes
 
     def dlr_loss_targeted(self, x, y):
         x_sorted, ind_sorted = x.sort(dim=1)
@@ -676,6 +676,8 @@ class APGDAttack_targeted(APGDAttack):
                         output = self.model(x_to_fool)
                     else:
                         output = self.model.predict(x_to_fool)
+                    
+                    # import pdb; pdb.set_trace()
                     self.y_target = output.sort(dim=1)[1][:, -target_class]
 
                     if not self.use_largereps:
