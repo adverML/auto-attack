@@ -62,7 +62,7 @@ class AutoAttack():
                 eps=self.epsilon, norm=self.norm, eot_iter=1, rho=.75, seed=self.seed, device=self.device,
                 is_tf_model=True, logger=self.logger)
     
-        if version in ['standard', 'plus', 'rand']:
+        if version in ['standard', 'standard_4', 'plus', 'rand']:
             self.set_version(version)
         
     def get_logits(self, x):
@@ -287,6 +287,22 @@ class AutoAttack():
             self.fab.n_restarts = 1
             self.apgd_targeted.n_restarts = 1
             self.fab.n_target_classes = 9
+            #self.apgd_targeted.n_target_classes = 9
+            self.square.n_queries = 5000
+
+        elif version == 'standard_4':
+            self.attacks_to_run = ['apgd-ce', 'apgd-t', 'fab-t', 'square']
+            if self.norm in ['Linf', 'L2']:
+                self.apgd.n_restarts = 1
+                self.apgd_targeted.n_target_classes = 3 # 9
+            elif self.norm in ['L1']:
+                self.apgd.use_largereps = True
+                self.apgd_targeted.use_largereps = True
+                self.apgd.n_restarts = 5
+                self.apgd_targeted.n_target_classes = 3 # 5
+            self.fab.n_restarts = 1
+            self.apgd_targeted.n_restarts = 1
+            self.fab.n_target_classes = 3 # 9
             #self.apgd_targeted.n_target_classes = 9
             self.square.n_queries = 5000
         

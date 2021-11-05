@@ -601,7 +601,7 @@ class APGDAttack_targeted(APGDAttack):
             use_largereps=use_largereps, is_tf_model=is_tf_model, logger=logger)
 
         self.y_target = None
-        self.n_target_classes = 2 # n_target_classes
+        self.n_target_classes = n_target_classes
 
     def dlr_loss_targeted(self, x, y):
         x_sorted, ind_sorted = x.sort(dim=1)
