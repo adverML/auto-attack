@@ -586,7 +586,7 @@ class APGDAttack_targeted(APGDAttack):
             eot_iter=1,
             rho=.75,
             topk=None,
-            n_target_classes=2,
+            n_target_classes=9,
             verbose=False,
             device=None,
             use_largereps=False,
