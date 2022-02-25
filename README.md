@@ -1,3 +1,7 @@
+```bash
+git submodule add -b forspectraldefense https://github.com/adverML/auto-attack.git autoattack
+```
+
 # AutoAttack
 
 "Reliable evaluation of adversarial robustness with an ensemble of diverse parameter-free attacks"\
