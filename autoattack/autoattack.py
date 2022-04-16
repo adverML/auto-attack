@@ -252,7 +252,7 @@ class AutoAttack():
         l_attacks = self.attacks_to_run
         adv = {}
         verbose_indiv = self.verbose
-        self.verbose = False
+        # self.verbose = False
         
         for c in l_attacks:
             startt = time.time()
