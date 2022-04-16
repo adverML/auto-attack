@@ -257,9 +257,9 @@ class AutoAttack():
         for c in l_attacks:
             startt = time.time()
             self.attacks_to_run = [c]
-            x_adv, y_adv = self.run_standard_evaluation(x_orig, y_orig, bs=bs, return_labels=True)
+            x_adv, y_adv, max_nr = self.run_standard_evaluation(x_orig, y_orig, bs=bs, return_labels=True)
             if return_labels:
-                adv[c] = (x_adv, y_adv)
+                adv[c] = (x_adv, y_adv, max_nr)
             else:
                 adv[c] = x_adv
             if verbose_indiv:    
