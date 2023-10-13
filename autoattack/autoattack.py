@@ -203,7 +203,6 @@ class AutoAttack():
                         self.logger.log('{} - {}/{} - {} out of {} successfully perturbed'.format(
                             attack, batch_idx + 1, n_batches, num_non_robust_batch, x.shape[0]))
                 
-
                 robust_accuracy = torch.sum(robust_flags).item() / x_orig.shape[0]
                 robust_accuracy_dict[attack] = robust_accuracy
                 if self.verbose:
@@ -225,7 +224,7 @@ class AutoAttack():
                     self.norm, res.max(), (x_adv != x_adv).sum(), x_adv.max(), x_adv.min()))
                 self.logger.log('robust accuracy: {:.2%}'.format(robust_accuracy))
         if return_labels:
-            return x_adv, y_adv, max_nr
+            return x_adv, y_adv, max_nr, ~robust_flags
         else:
             return x_adv, max_nr
 
@@ -257,9 +256,9 @@ class AutoAttack():
         for c in l_attacks:
             startt = time.time()
             self.attacks_to_run = [c]
-            x_adv, y_adv, max_nr = self.run_standard_evaluation(x_orig, y_orig, bs=bs, return_labels=True)
+            x_adv, y_adv, max_nr, success = self.run_standard_evaluation(x_orig, y_orig, bs=bs, return_labels=True)
             if return_labels:
-                adv[c] = (x_adv, y_adv, max_nr)
+                adv[c] = (x_adv, y_adv, max_nr, success)
             else:
                 adv[c] = x_adv
             if verbose_indiv:    
